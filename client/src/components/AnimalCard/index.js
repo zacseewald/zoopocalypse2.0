@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import bar from "../../images/cageBars.png";
 import { Link } from 'react-router-dom';
+import './index.css';
 import { ArgumentOutOfRangeError } from "rxjs";
+
 
 export class AnimalCard extends Component {
   constructor(props) {
@@ -15,7 +17,8 @@ export class AnimalCard extends Component {
       targetPosition: 0,
       message: "",
       hint: "",
-      isComplete: false
+      isComplete: false,
+      value: "",
     };
   }
   handleHintButton = event => {
@@ -48,7 +51,8 @@ export class AnimalCard extends Component {
       targetPosition: 0,
       message: "",
       hint: "",
-      isComplete: false
+      isComplete: false,
+      value: "",
     });
   };
   // Captures the key pressed by the user
@@ -105,6 +109,9 @@ export class AnimalCard extends Component {
       barsVisible[this.state.targetPosition] = false;
       // Changes the "_" to the key pressed by the user
       name[this.state.targetPosition] = key;
+     this.setState({
+       value: "",
+     })
       //  Checks to see if the word has been finished and sets the state for the message and is completed
       if (this.state.targetPosition === word.length - 1) {
         this.setState({
@@ -120,12 +127,12 @@ export class AnimalCard extends Component {
         barsVisible,
         name,
         hint,
-        guessLog: []
+        guessLog: [],
       });
     } else {
       guessLog.push(key); // adds incorrect letters to the letters arr and updates the h tag
       letters.push(key); // Addes all letters typed to an array of letters
-      this.setState({ letters, barsVisible, guessLog });
+      this.setState({ letters, barsVisible, guessLog, value: this.key });
     }
   };
 
@@ -169,7 +176,23 @@ export class AnimalCard extends Component {
             );
           })}
           <h1 style={correctLetterStyles}>{this.state.name}</h1>
-          <p style={guessesStyle}>Guesses [{this.state.guessLog}]</p>
+
+
+          {/* <p style={guessesStyle}>Guesses [{this.state.guessLog}]</p> */}
+
+
+
+
+
+
+          <input className="guess-input" type="text" value={this.state.value}></input>
+
+
+
+
+
+
+
 
           <button style={buttonStyle} onClick={this.handleHintButton}>
             Get A Hint

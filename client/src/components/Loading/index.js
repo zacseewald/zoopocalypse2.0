@@ -12,7 +12,7 @@ export class Loading extends Component {
           <p class="Header-text">
            A playground for Word challenges.
           </p>
-          <Link to="/login"><button>Click and Play</button></Link>
+          <Link to="/progress"><button>Click and Play</button></Link>
         </header>
      </div>
     )
