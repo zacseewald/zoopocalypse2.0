@@ -61,7 +61,7 @@ export class AnimalCard extends Component {
       isComplete: false,
       value: "",
       border: "4px solid #F6E769",
-      background: "linear-gradient( 160deg,rgb(140, 140, 140, 0.5) 15%,  rgb(80, 80, 80, 0.7))", 
+      background:  "rgb(140, 140, 140, 0.5)", 
       message: "Please help me out of this cage.",
       display: "none",
     });
