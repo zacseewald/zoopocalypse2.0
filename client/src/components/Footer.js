@@ -7,12 +7,13 @@ const footerStyle = {
   width: "100%",
   backgroundColor: "white",
   color: "black",
-  textAlign: "center"
+  textAlign: "center",
+  zIndex: "100",
 };
 
 const Footer = React.memo(() => (
   <div>
-    <footer style={footerStyle}>© copyright 2018</footer>
+    <footer style={footerStyle}>© copyright 2019</footer>
   </div>
 ));
 

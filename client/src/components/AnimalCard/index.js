@@ -2,23 +2,29 @@ import React, { Component } from "react";
 import bar from "../../images/cageBars.png";
 import { Link } from 'react-router-dom';
 import './index.css';
-import { ArgumentOutOfRangeError } from "rxjs";
-
 
 export class AnimalCard extends Component {
   constructor(props) {
     super(props);
-    console.log(props.animal[0]);
     this.state = {
       barsVisible: props.animal.split("").map(e => true),
       name: props.animal.split("").map(e => "_ "),
       letters: [],
       incorrectLetters: [],
       targetPosition: 0,
-      message: "",
+      message: "Please help me out of this cage.",
       hint: "",
       isComplete: false,
       value: "",
+      display: "none",
+      // image style
+      height: "175px",
+      position: "relative",
+      background: "#50D737",
+      border: "4px solid #26c6c4 ",
+      borderRadius: "15px",
+      width: "300px",
+      margin: "10px auto 0px"
     };
   }
   handleHintButton = event => {
@@ -27,11 +33,12 @@ export class AnimalCard extends Component {
     if (this.state.isComplete) {
       // if yes, then sets the state to the below
       this.setState({
-        hint: ""
+        hint: "You did it! Nice Job!"
       });
     } else {
       // if no, then sets the state to the below
       this.setState({
+        display: "block",
         hint:
           "Hint: " +
           '"' +
@@ -53,6 +60,10 @@ export class AnimalCard extends Component {
       hint: "",
       isComplete: false,
       value: "",
+      border: "4px solid #F6E769",
+      background: "linear-gradient( 160deg,rgb(140, 140, 140, 0.5) 15%,  rgb(80, 80, 80, 0.7))", 
+      message: "Please help me out of this cage.",
+      display: "none",
     });
   };
   // Captures the key pressed by the user
@@ -111,6 +122,7 @@ export class AnimalCard extends Component {
       name[this.state.targetPosition] = key;
      this.setState({
        value: "",
+       display: "none",
      })
       //  Checks to see if the word has been finished and sets the state for the message and is completed
       if (this.state.targetPosition === word.length - 1) {
@@ -118,7 +130,8 @@ export class AnimalCard extends Component {
           message: "The " + this.props.animal + " is free, hurray!!!",
           isComplete: true,
           hint: "",
-          background: "black",
+          border: "4px solid silver",
+          background: "linear-gradient( 180deg, whitesmoke 2%, #26c6c4  75%, rgb(053, 148, 105) 15%,rgb(123, 218, 185)",
         });
       }
       //   Adds to the posistion accumulator so that the index position will change each time this function is run
@@ -139,19 +152,31 @@ export class AnimalCard extends Component {
   componentDidMount() {
     document.addEventListener("keyup", this.onKeyUp);
     const barsVisible = this.state.barsVisible;
-    this.setState({ barsVisible });
+    this.setState({ barsVisible, background: "linear-gradient( 160deg, rgb(140, 140, 140, 0.5) 15%,  rgb(80, 80, 80, 0.7))", color: "#F6E769" });
   }
 
   render() {
     return (
       <div className="card" style={playerCardStyle}>
         <div>
-          <img
-            style={spellMeLogoStyle}
-            src={"../images/playLogos/spellmeBlue.png"}
-          />
+          <p id="title-top">SPELL ME!!!</p>
         </div>
-        <div style={imgStyle}>
+
+
+<div id="hint-modal">
+  <p id="hint-style" style={{ 
+    display: this.state.display,
+     }}>{this.state.hint}</p>
+ </div>
+        <div style={{
+            height: this.state.height,
+            position: this.state.position,
+            background: this.state.background,
+            border: this.state.border,
+            borderRadius: this.state.borderRadius,
+            width: this.state.width,
+            margin: this.state.margin,
+        }}>
           <img
             src={"../images/" + this.props.animal + ".png"}
             alt="Animal"
@@ -177,22 +202,9 @@ export class AnimalCard extends Component {
           })}
           <h1 style={correctLetterStyles}>{this.state.name}</h1>
 
-
-          {/* <p style={guessesStyle}>Guesses [{this.state.guessLog}]</p> */}
-
-
-
-
-
-
           <input className="guess-input" type="text" value={this.state.value}></input>
 
-
-
-
-
-
-
+          <h3 style={messStyle}>{this.state.message}</h3>
 
           <button style={buttonStyle} onClick={this.handleHintButton}>
             Get A Hint
@@ -202,33 +214,12 @@ export class AnimalCard extends Component {
           </button>
 
           <Link to="/progress"><button style={buttonStyle} >Back</button></Link>
-
-          <div>
-            <h3 style={messStyle}>{this.state.hint}</h3>
-            <h3 style={messStyle}>{this.state.message}</h3>
-          </div>
         </div>
       </div>
     );
   }
 }
 // Page styles below
-const spellMeLogoStyle = {
-  height: "40px",
-  marginTop: "10px",
-  borderBottom: "3px solid #7B5D94",
-  paddingLeft: "70px",
-  paddingRight: "70px"
-};
-const imgStyle = {
-  height: "175px",
-  position: "relative",
-  background: "#50D737",
-  border: "4px solid #444",
-  borderRadius: "15px",
-  width: "300px",
-  margin: "10px auto 0px"
-};
 const barStyle = {
   width: "9px",
   height: "175px",
@@ -241,10 +232,10 @@ const playerCardStyle = {
   border: "6px solid #7B5D94",
   margin: "auto",
   marginTop: "25px",
-  width: "400px",
+  width: "90%",
   backgroundColor: "#156369",
   borderRadius: "25px",
-  height: "460px"
+  height: "35em"
 };
 const correctLetterStyles = {
   color: "#F6E769",
@@ -259,18 +250,16 @@ const buttonStyle = {
   background: "#7B5D94",
   fontSize: "15px",
   borderRadius: "10px",
-  margin: "10px",
-  marginTop: "0px",
+  margin: ".3em",
+  marginTop: ".3em",
   color: "white"
 };
 const messStyle = {
   color: "#50D737",
-  fontFamily: "Arial"
+  fontFamily: "'Sawarabi Gothic', sans-serif",
+  marginTop: ".3em",
+  fontWeight: "100",
 };
-const guessesStyle = {
-  color: "white",
-  margin: "10px",
-  opacity: "0.5"
-};
+
 
 export default AnimalCard;

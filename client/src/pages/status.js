@@ -2,13 +2,23 @@ import React, { Component } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import API from "../utils/API";
+// import Animals from "../utils/zooAnimals.json";
+import { CompositionPage } from "twilio/lib/rest/video/v1/composition";
 
 class Status extends Component {
-  getStatus = () => {
-    API.completedStatus().then(res => {
-      console.log(res.data);
-    });
-  };
+  // getStatus = () => {
+  //   API.completedStatus().then(res => {
+  //     // console.log(res.data);
+  //   });
+  // };
+
+  state = {
+    // name: res.data.animal_name
+  }
+
+  handleClick = (e) => {
+    console.log("click");
+  }
 
   render() {
     return (
@@ -20,7 +30,7 @@ class Status extends Component {
           </div>
 
           <div>
-            <button onClick={this.getStatus}>CLICK ME</button>
+            <button onClick={this.handleClick}>CLICK ME</button>
           </div>
 
           {/* Footer */}

@@ -9,7 +9,7 @@ import Test from "./pages/test";
 import "./App.css";
 import Play from "./pages/play";
 import Progress from "./pages/progress";
-//import Status from "./pages/status";
+import Status from "./pages/status";
 //import Loading from '',
 
 class App extends Component {
@@ -21,7 +21,15 @@ class App extends Component {
           <Route exact path="/" component={Loading} />
             {/* Login Page/ Landing Page Route */}
             <Route exact path="/login" component={LogIn} /> 
+
+
+
+            <Route exact path="/status" component={Status} /> 
             
+
+
+
+
             <Route exact path="/progress" component={Progress} />
             {/* Game Play Page Route */}
             <Route path="/play" component={Play} />
