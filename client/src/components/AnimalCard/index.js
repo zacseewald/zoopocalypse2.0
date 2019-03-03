@@ -20,7 +20,7 @@ export class AnimalCard extends Component {
       // image style
       height: "175px",
       position: "relative",
-      background: "#50D737",
+      background: "linear-gradient( 160deg,rgb(140, 140, 140, 0.5) 15%,  rgb(80, 80, 80, 0.7))", 
       border: "4px solid #26c6c4 ",
       borderRadius: "15px",
       width: "300px",
